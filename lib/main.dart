@@ -29,12 +29,12 @@ class Bookyl extends StatelessWidget {
         BlocProvider(
           create: (context) => FeaturedBooksCubit(
             getIt.get<HomeRepoImplementation>(),
-          )..featchFeaturedBooks(),
+          )..fetchFeaturedBooks(),
         ),
         BlocProvider(
           create: (context) => NewestBooksCubit(
             getIt.get<HomeRepoImplementation>(),
-          )..featchNewestBooks(),
+          )..fetchNewestBooks(),
         ),
       ],
       child: MaterialApp.router(
