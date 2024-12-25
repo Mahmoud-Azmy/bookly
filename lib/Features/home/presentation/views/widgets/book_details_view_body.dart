@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_bookly/Features/home/data/models/book_model/book_model.dart';
 import 'package:my_bookly/Features/home/presentation/views/widgets/book_preview.dart';
 import 'package:my_bookly/Features/home/presentation/views/widgets/book_rating.dart';
 import 'package:my_bookly/Features/home/presentation/views/widgets/custom_book_details_app_bar.dart';
@@ -7,8 +8,8 @@ import 'package:my_bookly/Features/home/presentation/views/widgets/similar_books
 import 'package:my_bookly/core/utils/styles.dart';
 
 class BookDetailsViewBody extends StatelessWidget {
-  const BookDetailsViewBody({super.key});
-
+  const BookDetailsViewBody({super.key, required this.bookModel});
+  final BookModel bookModel;
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -29,10 +30,10 @@ class BookDetailsViewBody extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: width * .16),
-                        child: const CustomBookImage(
+                        padding: EdgeInsets.symmetric(horizontal: width * .1),
+                        child: CustomBookImage(
                           imageUrl:
-                              'https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Real_Madrid_CF.svg/1200px-Real_Madrid_CF.svg.png',
+                              bookModel.volumeInfo?.imageLinks?.thumbnail ?? '',
                           raduis: 16,
                         ),
                       ),
@@ -40,9 +41,10 @@ class BookDetailsViewBody extends StatelessWidget {
                         height: 20,
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: width * .13),
-                        child: const Text(
-                          'Harry Potter ',
+                        padding: EdgeInsets.symmetric(horizontal: width * .1),
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          bookModel.volumeInfo?.title ?? '',
                           maxLines: 2,
                           style: Styles.textStyle30,
                         ),
@@ -50,12 +52,15 @@ class BookDetailsViewBody extends StatelessWidget {
                       const SizedBox(
                         height: 5,
                       ),
-                      Text(
-                        'J.K. Rowling',
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        style: Styles.textStyle18.copyWith(
-                            color: Colors.grey, fontStyle: FontStyle.italic),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: width * .15),
+                        child: Text(
+                        bookModel.volumeInfo?.authors?[0] ?? '',
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: Styles.textStyle18.copyWith(
+                              color: Colors.grey, fontStyle: FontStyle.italic),
+                        ),
                       ),
                       const SizedBox(
                         height: 5,
@@ -64,7 +69,7 @@ class BookDetailsViewBody extends StatelessWidget {
                       const SizedBox(
                         height: 15,
                       ),
-                      const BookPreview(),
+                       BookPreview(bookModel: bookModel,),
                       const SizedBox(
                         height: 50,
                       ),

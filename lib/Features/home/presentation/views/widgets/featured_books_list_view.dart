@@ -25,7 +25,8 @@ class FeatuerdBooksListView extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 10),
                   child: GestureDetector(
                     onTap: () {
-                      GoRouter.of(context).push(AppRouter.kBookDetailsView);
+                      GoRouter.of(context).push(AppRouter.kBookDetailsView,
+                          extra: state.books[index]);
                     },
                     child: CustomBookImage(
                       imageUrl: state

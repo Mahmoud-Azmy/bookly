@@ -27,7 +27,8 @@ class NewsetBooksListView extends StatelessWidget {
                     bookModel: state.books[index],
                   ),
                   onTap: () {
-                    GoRouter.of(context).push(AppRouter.kBookDetailsView);
+                    GoRouter.of(context).push(AppRouter.kBookDetailsView,
+                        extra: state.books[index]);
                   },
                 ),
               );
